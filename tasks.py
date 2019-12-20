@@ -3,7 +3,7 @@ import glob
 from fabric import Connection
 from invoke import task
 
-HOST        = 'ec2-34-220-228-32.us-west-2.compute.amazonaws.com'
+HOST        = 'ec2-13-250-51-160.ap-southeast-1.compute.amazonaws.com'
 USER        = 'ubuntu'
 ROOT        = 'cash'
 REMOTE      = '{user}@{host}:{root}'.format(user=USER, host=HOST, root=ROOT)
@@ -66,7 +66,7 @@ def pull(ctx):
 def train(ctx):
     with ctx.conn.cd(ROOT):
         with ctx.conn.prefix('source {}/bin/activate'.format(VENV)):
-            ctx.conn.run('dtach -A /tmp/{} python3 train.py --model_def config/yolov3-custom.cfg --data_config config/custom.data --epochs 100  --batch 4 --pretrained_weights weights/darknet53.conv.74'.format(ROOT), pty=True)
+            ctx.conn.run('dtach -A /tmp/{} python3 -W ignore::UserWarning train.py --model_def config/yolov3-custom.cfg --data_config config/custom.data --epochs 100  --batch 4'.format(ROOT), pty=True)
 
 @task(pre=[connect], post=[close])
 def resume(ctx):
@@ -76,7 +76,7 @@ def resume(ctx):
 def test(ctx, model=''):
     with ctx.conn.cd(ROOT):
         with ctx.conn.prefix('source {}/bin/activate'.format(VENV)):
-            ctx.conn.run('python3 detect.py --image_folder data/samples/ --model_def config/yolov3-custom.cfg --weights_path checkpoints/yolov3_ckpt_63.pth --checkpoint_model checkpoints/yolov3_ckpt_63.pth --class_path data/custom/classes.names', pty=True)
+            ctx.conn.run('python3 detect.py --image_folder data/samples/ --model_def config/yolov3-custom.cfg --weights_path checkpoints/yolov3_ckpt_99.pth --checkpoint_model checkpoints/yolov3_ckpt_99.pth --class_path data/custom/classes.names', pty=True)
 
 @task(pre=[connect], post=[close])
 def clean(ctx):
