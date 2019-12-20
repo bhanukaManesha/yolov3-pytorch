@@ -1,0 +1,15 @@
+ipython
+blinker
+pillow
+tqdm
+numpy
+torch>=1.0
+torchvision
+matplotlib
+terminaltables
+setuptools
+
+tensorflow-gpu==1.14
+tensorboard
+
+fabric

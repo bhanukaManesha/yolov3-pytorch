@@ -11,3 +11,11 @@ weights/*.weights
 __pycache__
 checkpoints
 pytorch/
+.vscode/
+data/custom/
+data/samples/
+logs/
+weights/
+Bhanuka.pem
+Bhanuka_SG.pem
+expirements/
